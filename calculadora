@@ -22,7 +22,7 @@ const sum=(snums)=>{
     for(let i=0;i<snums.length;i++){
         totalsum+=snums[i]
     }
-    totalsum=totalsum.toFixed(3)
+    totalsum=totalsum.toFixed(3).replace(".000", "")
     return totalsum
 }
 const subs=(snums)=>{
@@ -34,7 +34,7 @@ const subs=(snums)=>{
          }
         totalsubs-=snums[i]
     }
-    totalsubs=totalsubs.toFixed(3)
+    totalsubs=totalsubs.toFixed(3).replace(".000", "")
     return totalsubs
 }
 const prod=(pnums)=>{
@@ -42,7 +42,7 @@ const prod=(pnums)=>{
      for(let i=0;i<pnums.length;i++){
         totalprod*=pnums[i]
     }
-    totalprod=totalprod.toFixed(3)
+    totalprod=totalprod.toFixed(3).replace(".000", "")
     return totalprod
 }
 const div=(dnums)=>{
@@ -54,11 +54,11 @@ const div=(dnums)=>{
          }
         totaldiv/=dnums[i]
     }
-    totaldiv=totaldiv.toFixed(3)
+    totaldiv=totaldiv.toFixed(3).replace(".000", "")
     return totaldiv
 }
 const sqrt=(num)=>{
-    let total=Math.sqrt(num).toFixed(3)
+    let total=Math.sqrt(num).toFixed(3).replace(".000", "")
     return total
 }
 const checkNums=(nums)=>{
