@@ -1,0 +1,84 @@
+let num=[]
+const askNumber=()=>{
+    let i=0,j,p
+    while(true){
+        p=+prompt(`Introduce el ${i+1} numero (o no escriba nada para salir): `)
+        if(p===''){
+            if(i===1){
+                j='sqrt'
+            }
+            break
+        }
+        if(Number.isNaN(p)){
+            console.log('Introduce unicamente numeros')
+            continue
+        }
+         num.push(p)
+         i++
+    }
+}
+const sum=(snums)=>{
+    let totalsum=0
+    for(let i=0;i<snums.length;i++){
+        totalsum+=snums[i]
+    }
+    totalsum=totalsum.toFixed(3)
+    return totalsum
+}
+const subs=(snums)=>{
+    let totalsubs
+     for(let i=0;i<snums.length;i++){
+         if(i===0){
+             totalsubs=snums[i]
+             continue
+         }
+        totalsubs-=snums[i]
+    }
+    totalsubs=totalsubs.toFixed(3)
+    return totalsubs
+}
+const prod=(pnums)=>{
+    let totalprod=1
+     for(let i=0;i<pnums.length;i++){
+        totalprod*=pnums[i]
+    }
+    totalprod=totalprod.toFixed(3)
+    return totalprod
+}
+const div=(dnums)=>{
+    let totaldiv
+     for(let i=0;i<dnums.length;i++){
+         if(i===0){
+             totaldiv=dnums[i]
+             continue
+         }
+        totaldiv/=dnums[i]
+    }
+    totaldiv=totaldiv.toFixed(3)
+    return totaldiv
+}
+const sqrt=(num)=>{
+    let total=Math.sqrt(num).toFixed(3)
+    return total
+}
+const checkNums=(nums)=>{
+    if(num.length===1){
+        let result=sqrt(nums)
+        console.log('Raiz cuadrada:',result)
+    }else{
+        let result=[sum(nums),subs(nums),prod(nums),div(nums)] 
+        console.log('Suma:',result[0],'/ Resta:',result[1],'/ Producto:',result[2],'/ Division:',result[3])
+    }
+}
+while(true){
+    askNumber()
+    checkNums(num)
+    let a=prompt('Quieres hacer otro intento? ')
+    if(a.toLowerCase()==='si'){
+        num=[]
+        continue
+    }else{
+        console.log('Bye')
+        break
+    }
+}
