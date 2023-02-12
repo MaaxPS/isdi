@@ -10,6 +10,27 @@ const flights = [
     { id: 08, to: "Sydney", from: "Barcelona", cost: 150, layover: true },
     { id: 09, to: "Tel-Aviv", from: "Madrid", cost: 150, layover: false },
 ]
+a=prompt('Buenas, cual es tu nombre? ')
+console.log('Bienvenido',a+'! A continuacion se mostraran los vuelos disponibles:')
+let media=0,escalas=0
+for(let i=0;i<flights.length;i++){
+if(flights[i].layover){
+    console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala')
+}else{
+console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala')
+}
+media+=flights[i].cost
+if(flights[i].layover){
+    escalas++
+}
+}
+media/=flights.length
+console.log('La media del precio de los vuelos es',media,'y hay',escalas,'vuelos con escalas')
+const last5=[]
+for(let i=0;i<5;i++){
+    last5.push(flights[i+5].to)
+}
+console.log('Los ultimos 5 vuelos del dia tienen como destino:',last5.join(', '))
 let addV=(array)=>{
     let i=10
     let a=prompt('Quieres crear mas vuelos? ')
