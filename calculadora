@@ -3,8 +3,8 @@ const askNumber=()=>{
     let i=0,j,p
     while(true){
         p=+prompt(`Introduce el ${i+1} numero (o no escriba nada para salir): `)
-        if(p===''){
-            if(i===1){
+        if(p==''){
+            if(i==1){
                 j='sqrt'
             }
             break
@@ -28,7 +28,7 @@ const sum=(snums)=>{
 const subs=(snums)=>{
     let totalsubs
      for(let i=0;i<snums.length;i++){
-         if(i===0){
+         if(i==0){
              totalsubs=snums[i]
              continue
          }
@@ -48,7 +48,7 @@ const prod=(pnums)=>{
 const div=(dnums)=>{
     let totaldiv
      for(let i=0;i<dnums.length;i++){
-         if(i===0){
+         if(i==0){
              totaldiv=dnums[i]
              continue
          }
@@ -62,7 +62,7 @@ const sqrt=(num)=>{
     return total
 }
 const checkNums=(nums)=>{
-    if(num.length===1){
+    if(num.length==1){
         let result=sqrt(nums)
         console.log('Raiz cuadrada:',result)
     }else{
@@ -74,7 +74,7 @@ while(true){
     askNumber()
     checkNums(num)
     let a=prompt('Quieres hacer otro intento? ')
-    if(a.toLowerCase()==='si'){
+    if(a.toLowerCase()=='si'){
         num=[]
         continue
     }else{
