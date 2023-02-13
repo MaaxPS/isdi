@@ -1,19 +1,20 @@
 let num=[]
+console.log('Buenas usuario!')
 const askNumber=()=>{
-    let i=0,j,p
+    let i=0,isSqrt,numero
     while(true){
-        p=+prompt(`Introduce el ${i+1} numero (o no escriba nada para salir): `)
-        if(p==''){
+        numero=+prompt(`Introduzca el ${i+1} numero (o no escriba nada para salir): `)
+        if(numero==''){
             if(i==1){
-                j='sqrt'
+                isSqrt='sqrt'
             }
             break
         }
-        if(Number.isNaN(p)){
-            console.log('Introduce unicamente numeros')
+        if(Number.isNaN(numero)){
+            console.log('Perdona pero unicamente se pueden escribir numeros en la calculadora')
             continue
         }
-         num.push(p)
+         num.push(numero)
          i++
     }
 }
@@ -73,12 +74,12 @@ const checkNums=(nums)=>{
 while(true){
     askNumber()
     checkNums(num)
-    let a=prompt('Quieres hacer otro intento? ')
-    if(a.toLowerCase()=='si'){
+    let otroIntento=prompt('Quiere usted hacer otro intento? ')
+    if(otroIntento.toLowerCase()=='si'){
         num=[]
         continue
     }else{
-        console.log('Bye')
+        console.log('Adios usuario y que vaya bien!')
         break
     }
 }
