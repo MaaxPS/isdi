@@ -10,45 +10,45 @@ const flights = [
     { id: 08, to: "Sydney", from: "Barcelona", cost: 150, layover: true },
     { id: 09, to: "Tel-Aviv", from: "Madrid", cost: 150, layover: false },
 ]
-a=prompt('Buenas, cual es tu nombre? ')
-console.log('Bienvenido',a+'! A continuacion se mostraran los vuelos disponibles:')
-let media=0,escalas=0
+let userName=prompt('Buenas, introduzca su nombre por favor: ')
+console.log('Bienvenido',userName+'! A continuacion se mostraran los vuelos disponibles: \n')
+let average=0,layover=0
 for(let i=0;i<flights.length;i++){
 if(flights[i].layover){
-    console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala')
+    console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala. \n')
 }else{
-console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala')
+console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala. \n')
 }
-media+=flights[i].cost
+average+=flights[i].cost
 if(flights[i].layover){
-    escalas++
+    layover++
 }
 }
-media/=flights.length
-console.log('La media del precio de los vuelos es',media,'y hay',escalas,'vuelos con escalas')
-const last5=[]
+average/=flights.length
+console.log('La media del precio de los vuelos es',average,'y hay',layover,'vuelos con escalas. \n')
+const last5Flights=[]
 for(let i=0;i<5;i++){
-    last5.push(flights[i+5].to)
+    last5Flights.push(flights[i+5].to)
 }
-console.log('Los ultimos 5 vuelos del dia tienen como destino:',last5.join(', '))
-let addV=(array)=>{
+console.log('Los ultimos 5 vuelos del dia tienen como destino:',last5Flights.join(', ')+'. \n')
+let addFlight=(flights)=>{
     let i=10
-    let a=prompt('Quieres crear mas vuelos? ')
-    if(a.toLowerCase()==='si'){
+    let createFlight=prompt('Buenas ADMIN, esta usted interesado en crear mas vuelos? (introduzca "si" para crear mas vuelos / introduzca "no" para no crear mas vuelos) ')
+    if(createFlight.toLowerCase()==='si'){
         while(true){
-            if(i!=10){
-                let a=prompt('Quieres introducir otro vuelo? ')
-                if(a.toLowerCase()=='si'){
+            if(i!==10){
+                let createAnotherFlight=prompt('Quiere usted introducir otro vuelo? (introduzca "si" para crear un vuelo / introduzca "no" para no crear mas vuelos) ')
+                if(createAnotherFlight.toLowerCase()==='si'){
                     
                 }else{
                     break
                 }
             }
-            if (i==25){
-                alert('No puedes introducir mas de 15 vuelos!')
+            if (i===25){
+                alert('Perdona pero no puedes introducir mas de 15 vuelos!')
                 break
             }
-            let to=prompt('Destino: '),from=prompt('Salida: '),cost=Number(prompt('Precio: ')),layover=prompt('Hace escala? ')=='si'.toLowerCase() ? true : false
+            let to=prompt('Introduzca el lugar del destino: '),from=prompt('Introduzca el lugar de salida: '),cost=Number(prompt('Introduzca el precio del vuelo: ')),layover=prompt('El vuelo hace escala? (introduzca "si" si hace escala / introduzca otra cosa si no hace escala) ')==='si'.toLowerCase() ? true : false
             let obj={
                 id: i,
                 to: to,
@@ -56,43 +56,92 @@ let addV=(array)=>{
                 cost: cost,
                 layover: layover
                 }
-                array.push(obj)
+                flights.push(obj)
             i++
             }
         }
     }
-let deleteV=(array)=>{
+let deleteFlight=(flights)=>{
+    let j=0
+    let wantToDeleteFlight,deleteFlightFromId
     while(true){
-    let a=prompt('Quieres eliminar algun vuelo? ')
-    if(a.toLowerCase()=='si'){
-        let a=prompt('Introduce el id del vuelo que quieres eliminar: ')
-        for(let i=0;i<array.length;i++){
-            if(array[i].id==Number(a)){
-                delete array[i]
+    if(j===0){
+        wantToDeleteFlight=prompt('ADMIN, esta usted interesado en eliminar algun vuelo? (introduzca "si" para eliminar algun vuelo / introduzca "no" para no eliminar algun vuelo) ')
+    }else{
+        wantToDeleteFlight=prompt('Esta usted interesado en eliminar otro vuelo? (introduzca "si" para eliminar otro vuelo / introduzca "no" para no eliminar otro vuelo) ')
+    }
+    if(wantToDeleteFlight.toLowerCase()==='si'){
+        deleteFlightFromId=prompt('Introduzca el id del vuelo que quiera eliminar: ')
+         for(let i=0;i<flights.length;i++){
+            if(Number(flights[i].id)===Number(deleteFlightFromId)){
+                flights.splice(i,1)
             }
         }
     }
     else{
         break
     }
+    j++
     }
+    console.log('\n A continuacion se mostraran los vuelos disponibles despues de los cambios que se han hecho: \n')
+    for(let i=0;i<flights.length;i++){
+if(flights[i].layover){
+    console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala. \n')
+}else{
+console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala. \n')
 }
-let findV=(array)=>{
-    let a=prompt('Introduce el precio maximo: ')
-    for(let i=0;i<array.length;i++){
-        if(Number(a)<=array[i].cost){
-            if(array[i].layover){
-                console.log('El vuelo con numero id',array[i].id,'con salida',array[i].from,'y llegada',array[i].to,'tiene un precio de',array[i].cost,'y hace escala.')
+}
+}
+let findFlight=(flights)=>{
+    let k=0,introducedMaximPrice
+    while(true){
+        introducedMaximPrice=prompt('Buenas USER, a continuacion se le mostraran los vuelos con un precio inferior o igual al precio que introduzca: ')
+        if(Number.isNaN(Number(introducedMaximPrice))){
+            console.log('Introduzca unicamente numeros por favor')
+            continue
+        }
+        break
+    }
+    for(let i=0;i<flights.length;i++){
+        if(Number(introducedMaximPrice)<=flights[i].cost){
+            if(flights[i].layover){
+                console.log('El vuelo con numero id',flights[i].id,'con salida',flights[i].from,'y llegada',flights[i].to,'tiene un precio de',flights[i].cost,'y hace escala. \n')
             }else{
-                console.log('El vuelo con numero id',array[i].id,'con salida',array[i].from,'y llegada',array[i].to,'tiene un precio de',array[i].cost,'y no hace escala.')
+                console.log('El vuelo con numero id',flights[i].id,'con salida',flights[i].from,'y llegada',flights[i].to,'tiene un precio de',flights[i].cost,'y no hace escala. \n')
             }
+        }else{
+            k++
         }
     }
+    if(k>9){
+        console.log('Perdona USER pero ningun vuelo coincide con un valor igual o inferior al introducido')
+    }
 }
-let AdUs=prompt('Eres un ADMIN o un USER? ')
-if(AdUs.toLowerCase()==='admin'){
-    addV(flights)
-    deleteV(flights)
-}else{
-    findV(flights)
+let i=0,AdminOrUser
+while(true){
+if(i===0){AdminOrUser=prompt('Perdona es usted un ADMIN o un USER? (introduzca ADMIN o USER) ')
+}
+if(AdminOrUser.toLowerCase()==='admin'){
+    addFlight(flights)
+    deleteFlight(flights)
+    if(confirm('Perdona quiere hacer otra operacion?')){
+        continue
+    }else{
+        console.log('Adios ADMIN que vaya bien!')
+        break
+    }
+}else if(AdminOrUser.toLowerCase()==='user'){
+    findFlight(flights)
+    if(confirm('Perdona quiere hacer otra operacion?')){
+        continue
+    }else{
+        console.log('Adios USER que vaya bien!')
+        break
+    }
+}
+else{
+    console.log('Introduzca unicamente admin o user!')
+    continue
+}
+i++
 }
