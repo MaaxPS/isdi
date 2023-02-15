@@ -1,85 +1,105 @@
-let num=[]
-console.log('Buenas usuario!')
-const askNumber=()=>{
-    let i=0,isSqrt,numero
-    while(true){
-        numero=+prompt(`Introduzca el ${i+1} numero (o no escriba nada para salir): `)
-        if(numero==''){
-            if(i==1){
-                isSqrt='sqrt'
-            }
-            break
+const askNumber=(allNums,isSqrt)=>{
+    let m=0,introducedNumber,getOut=true
+    while(getOut){
+        introducedNumber=prompt(`Introduzca el ${m+1} numero (no escriba nada para salir): `)
+        if(introducedNumber===''&&m===0){
+                console.log('Perdone pero ha de introducir un primer numero')
+            continue
         }
-        if(Number.isNaN(numero)){
+        else if(introducedNumber===''){
+            if(allNums.length===1){
+                getOut=false
+                isSqrt[0]=true
+            continue
+            }
+            getOut=false
+            continue
+        }
+        else if(Number.isNaN(Number(introducedNumber))){
             console.log('Perdona pero unicamente se pueden escribir numeros en la calculadora')
             continue
         }
-         num.push(numero)
-         i++
+         allNums.push(Number(introducedNumber))
+         m++
     }
 }
-const sum=(snums)=>{
-    let totalsum=0
-    for(let i=0;i<snums.length;i++){
-        totalsum+=snums[i]
+const sum=(sumNums)=>{
+    let totalSum=0
+    for(let i=0;i<sumNums.length;i++){
+        totalSum+=sumNums[i]
     }
-    totalsum=totalsum.toFixed(3).replace(".000", "")
-    return totalsum
+    totalSum=totalSum.toFixed(3).replace(".000", "")
+    return totalSum
 }
-const subs=(snums)=>{
-    let totalsubs
-     for(let i=0;i<snums.length;i++){
+const subs=(subsNums)=>{
+    let totalSubs
+     for(let i=0;i<subsNums.length;i++){
          if(i==0){
-             totalsubs=snums[i]
+             totalSubs=subsNums[i]
              continue
          }
-        totalsubs-=snums[i]
+        totalSubs-=subsNums[i]
     }
-    totalsubs=totalsubs.toFixed(3).replace(".000", "")
-    return totalsubs
+    totalSubs=totalSubs.toFixed(3).replace(".000", "")
+    return totalSubs
 }
-const prod=(pnums)=>{
-    let totalprod=1
-     for(let i=0;i<pnums.length;i++){
-        totalprod*=pnums[i]
+const prod=(prodNums)=>{
+    let totalProd=1
+     for(let i=0;i<prodNums.length;i++){
+        totalProd*=prodNums[i]
     }
-    totalprod=totalprod.toFixed(3).replace(".000", "")
-    return totalprod
+    totalProd=totalProd.toFixed(3).replace(".000", "")
+    return totalProd
 }
-const div=(dnums)=>{
-    let totaldiv
-     for(let i=0;i<dnums.length;i++){
+const div=(divNums)=>{
+    let totalDiv
+     for(let i=0;i<divNums.length;i++){
          if(i==0){
-             totaldiv=dnums[i]
+             totalDiv=divNums[i]
              continue
          }
-        totaldiv/=dnums[i]
+        totalDiv/=divNums[i]
     }
-    totaldiv=totaldiv.toFixed(3).replace(".000", "")
-    return totaldiv
+    totalDiv=totalDiv.toFixed(3).replace(".000", "")
+    return totalDiv
 }
-const sqrt=(num)=>{
-    let total=Math.sqrt(num).toFixed(3).replace(".000", "")
-    return total
+const sqrt=(sqrtNum)=>{
+    let totalSqrt=Math.sqrt(sqrtNum).toFixed(3).replace(".000", "")
+    return totalSqrt
 }
-const checkNums=(nums)=>{
-    if(num.length==1){
-        let result=sqrt(nums)
-        console.log('Raiz cuadrada:',result)
+const checkNums=(allNums,isSqrt)=>{
+    if(isSqrt[0]){
+        let resultSqrt=sqrt(allNums[0])
+        console.log('Raiz cuadrada:',resultSqrt)
     }else{
-        let result=[sum(nums),subs(nums),prod(nums),div(nums)] 
-        console.log('Suma:',result[0],'/ Resta:',result[1],'/ Producto:',result[2],'/ Division:',result[3])
+        let resultAll=[sum(allNums),subs(allNums),prod(allNums),div(allNums)] 
+        console.log('Suma:',resultAll[0],'/ Resta:',resultAll[1],'/ Producto:',resultAll[2],'/ Division:',resultAll[3])
     }
 }
-while(true){
-    askNumber()
-    checkNums(num)
-    let otroIntento=prompt('Quiere usted hacer otro intento? ')
-    if(otroIntento.toLowerCase()=='si'){
-        num=[]
+let runProgram=()=>{
+    let allNums=[],isSqrt=[false]
+console.log('Buenas usuario!')
+let i=0,getOut2=true
+while(getOut2){
+    if(i===0){
+    askNumber(allNums,isSqrt)
+    checkNums(allNums,isSqrt)
+    }else{
+        i--
+    }
+    let anotherTry=prompt('Quiere usted hacer otro intento? ("si" para hacer otro intento / "no" para cerrar la aplicacion): ')
+    if(anotherTry.toLowerCase()==='si'){
+        allNums=[]
+        isSqrt[0]=false
         continue
-    }else{
+    }else if(anotherTry.toLowerCase()==='no'){
         console.log('Adios usuario y que vaya bien!')
-        break
+        getOut2=false
+    }else{
+        console.log('Introduzca unicamente si o no por favor')
+        i++
+        continue
     }
 }
+}
+runProgram()
