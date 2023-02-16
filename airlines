@@ -15,9 +15,9 @@ console.log('Bienvenido',userName+'! A continuacion se mostraran los vuelos disp
 let average=0,layover=0
 for(let i=0;i<flights.length;i++){
 if(flights[i].layover){
-    console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala. \n')
+    console.log('El vuelo con id',flights[i].id,'origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala. \n')
 }else{
-console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala. \n')
+console.log('El vuelo con id',flights[i].id,'origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala. \n')
 }
 average+=flights[i].cost
 if(flights[i].layover){
@@ -33,7 +33,7 @@ for(let i=0;i<5;i++){
 console.log('Los ultimos 5 vuelos del dia tienen como destino:',last5Flights.join(', ')+'. \n')
 let addFlight=(flights)=>{
     let i=10
-    let createFlight=prompt('Buenas ADMIN, esta usted interesado en crear mas vuelos? (introduzca "si" para crear mas vuelos / introduzca "no" para no crear mas vuelos) ')
+    let createFlight=prompt('Buenas ADMIN, esta usted interesado en crear mas vuelos? (se introduciran a continuacion de la lista de los vuelos ya existentes empezando con el id 10) (introduzca "si" para crear mas vuelos / introduzca "no" para no crear mas vuelos) ')
     if(createFlight.toLowerCase()==='si'){
         while(true){
             if(i!==10){
@@ -86,9 +86,9 @@ let deleteFlight=(flights)=>{
     console.log('\n A continuacion se mostraran los vuelos disponibles despues de los cambios que se han hecho: \n')
     for(let i=0;i<flights.length;i++){
 if(flights[i].layover){
-    console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala. \n')
+    console.log('El vuelo con id',flights[i].id,'origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala. \n')
 }else{
-console.log('El vuelo con origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala. \n')
+console.log('El vuelo con id',flights[i].id,'origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala. \n')
 }
 }
 }
@@ -103,7 +103,7 @@ let findFlight=(flights)=>{
         break
     }
     for(let i=0;i<flights.length;i++){
-        if(Number(introducedMaximPrice)<=flights[i].cost){
+        if(Number(introducedMaximPrice)>=flights[i].cost){
             if(flights[i].layover){
                 console.log('El vuelo con numero id',flights[i].id,'con salida',flights[i].from,'y llegada',flights[i].to,'tiene un precio de',flights[i].cost,'y hace escala. \n')
             }else{
