@@ -32,11 +32,11 @@ for(let i=0;i<5;i++){
 }
 console.log('Los ultimos 5 vuelos del dia tienen como destino:',last5Flights.join(', ')+'. \n')
 let addFlight=(flights)=>{
-    let i=10
+    let i=flights[flights.length-1].id+1,secondBucleRun=false
     let createFlight=prompt('Buenas ADMIN, esta usted interesado en crear mas vuelos? (se introduciran a continuacion de la lista de los vuelos ya existentes empezando con el id 10) (introduzca "si" para crear mas vuelos / introduzca "no" para no crear mas vuelos) ')
     if(createFlight.toLowerCase()==='si'){
         while(true){
-            if(i!==10){
+            if(secondBucleRun){
                 let createAnotherFlight=prompt('Quiere usted introducir otro vuelo? (introduzca "si" para crear un vuelo / introduzca "no" para no crear mas vuelos) ')
                 if(createAnotherFlight.toLowerCase()==='si'){
                     
@@ -44,7 +44,7 @@ let addFlight=(flights)=>{
                     break
                 }
             }
-            if (i===25){
+            if (flights.length>15){
                 alert('Perdona pero no puedes introducir mas de 15 vuelos!')
                 break
             }
@@ -57,7 +57,16 @@ let addFlight=(flights)=>{
                 layover: layover
                 }
                 flights.push(obj)
+                console.log('\n A continuacion se mostraran los vuelos disponibles despues de los cambios que se han hecho: \n')
+                    for(let i=0;i<flights.length;i++){
+                        if(flights[i].layover){
+                              console.log('El vuelo con id',flights[i].id,'origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y realiza una escala. \n')
+                        }else{
+                            console.log('El vuelo con id',flights[i].id,'origen:',flights[i].from+', y destino:',flights[i].to,'tiene un coste de',flights[i].cost,'y no realiza ninguna escala. \n')
+                        }
+                    }
             i++
+            secondBucleRun=true
             }
         }
     }
