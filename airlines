@@ -10,6 +10,7 @@ const flights = [
     { id: 08, to: "Sydney", from: "Barcelona", cost: 150, layover: true },
     { id: 09, to: "Tel-Aviv", from: "Madrid", cost: 150, layover: false },
 ]
+let userName
 while(true){
     let userName=prompt('Buenas, introduzca su nombre por favor: ')
     if(userName===null){
@@ -39,7 +40,7 @@ for(let i=0;i<5;i++){
 }
 console.log('Los ultimos 5 vuelos del dia tienen como destino:',last5Flights.join(', ')+'. \n')
 let addFlight=(flights)=>{
-    let i=flights[flights.length-1].id+1,secondBucleRun=false
+    let i=flights[flights.length-1].id+1,secondBucleRun=false,createFlight
     while(true){
     let createFlight=prompt('Buenas ADMIN, esta usted interesado en crear mas vuelos? (se introduciran a continuacion de la lista de los vuelos ya existentes empezando con el id 10) (introduzca "si" para crear mas vuelos / introduzca "no" para no crear mas vuelos) ')
     if(createFlight===null){
@@ -51,6 +52,7 @@ let addFlight=(flights)=>{
     if(createFlight.toLowerCase()==='si'){
         while(true){
             if(secondBucleRun){
+                let createAnotherFlight
                 while(true){
                 let createAnotherFlight=prompt('Quiere usted introducir otro vuelo? (introduzca "si" para crear un vuelo / introduzca "no" para no crear mas vuelos) ')
                 if(createAnotherFlight===null){
@@ -69,6 +71,7 @@ let addFlight=(flights)=>{
                 alert('Perdona pero no puedes introducir mas de 15 vuelos!')
                 break
             }
+            let to,from,cost,layover
             while(true){
             let to=prompt('Introduzca el lugar del destino: '),from=prompt('Introduzca el lugar de salida: '),cost=Number(prompt('Introduzca el precio del vuelo: ')),layover=prompt('El vuelo hace escala? (introduzca "si" si hace escala / introduzca otra cosa si no hace escala) ')==='si' ? true : false
                 if(to===null||from===null||cost===null){
