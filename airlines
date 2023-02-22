@@ -12,7 +12,7 @@ const flights = [
 ]
 let userName
 while(true){
-    let userName=prompt('Buenas, introduzca su nombre por favor: ')
+    userName=prompt('Buenas, introduzca su nombre por favor: ')
     if(userName===null){
         console.log('Do not click cancel, click accept')
         continue
@@ -40,9 +40,9 @@ for(let i=0;i<5;i++){
 }
 console.log('Los ultimos 5 vuelos del dia tienen como destino:',last5Flights.join(', ')+'. \n')
 let addFlight=(flights)=>{
-    let i=flights[flights.length-1].id+1,secondBucleRun=false,createFlight
+    let i=flights[flights.length-1].id+1,secondBucleRun=false,createFlight,createAnotherFlight
     while(true){
-    let createFlight=prompt('Buenas ADMIN, esta usted interesado en crear mas vuelos? (se introduciran a continuacion de la lista de los vuelos ya existentes empezando con el id 10) (introduzca "si" para crear mas vuelos / introduzca "no" para no crear mas vuelos) ')
+    createFlight=prompt('Buenas ADMIN, esta usted interesado en crear mas vuelos? (se introduciran a continuacion de la lista de los vuelos ya existentes empezando con el id 10) (introduzca "si" para crear mas vuelos / introduzca "no" para no crear mas vuelos) ')
     if(createFlight===null){
         console.log('Do not click cancel, click accept')
         continue
@@ -52,9 +52,8 @@ let addFlight=(flights)=>{
     if(createFlight.toLowerCase()==='si'){
         while(true){
             if(secondBucleRun){
-                let createAnotherFlight
                 while(true){
-                let createAnotherFlight=prompt('Quiere usted introducir otro vuelo? (introduzca "si" para crear un vuelo / introduzca "no" para no crear mas vuelos) ')
+                createAnotherFlight=prompt('Quiere usted introducir otro vuelo? (introduzca "si" para crear un vuelo / introduzca "no" para no crear mas vuelos) ')
                 if(createAnotherFlight===null){
                     console.log('Do not click cancel, click accept')
                     continue
@@ -73,7 +72,7 @@ let addFlight=(flights)=>{
             }
             let to,from,cost,layover
             while(true){
-            let to=prompt('Introduzca el lugar del destino: '),from=prompt('Introduzca el lugar de salida: '),cost=Number(prompt('Introduzca el precio del vuelo: ')),layover=prompt('El vuelo hace escala? (introduzca "si" si hace escala / introduzca otra cosa si no hace escala) ')==='si' ? true : false
+            to=prompt('Introduzca el lugar del destino: '),from=prompt('Introduzca el lugar de salida: '),cost=Number(prompt('Introduzca el precio del vuelo: ')),layover=prompt('El vuelo hace escala? (introduzca "si" si hace escala / introduzca otra cosa si no hace escala) ')==='si' ? true : false
                 if(to===null||from===null||cost===null){
                     console.log('Do not click cancel, click accept')
                     continue
@@ -103,7 +102,7 @@ let addFlight=(flights)=>{
     }
 let deleteFlight=(flights)=>{
     let j=0
-    let wantToDeleteFlight,deleteFlightFromId
+    let wantToDeleteFlight,deleteFlightFromId,idNotExists
     while(true){
     if(j===0){
         while(true){
@@ -126,9 +125,22 @@ let deleteFlight=(flights)=>{
     }
     if(wantToDeleteFlight.toLowerCase()==='si'){
         while(true){
+            idNotExists=false
             deleteFlightFromId=prompt('Introduzca el id del vuelo que quiera eliminar: ')
             if(deleteFlightFromId===null){
             console.log('Do not click cancel, click accept')
+            continue
+        }
+        for(let i=0,r=0;i<flights.length;i++){
+            if(flights[i].id!==Number(deleteFlightFromId)){
+                r++
+            }
+            if(r===flights.length){
+                console.log('Este vuelo no existe')
+                idNotExists=true
+            }
+        }
+        if(idNotExists){
             continue
         }
         break
