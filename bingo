@@ -8,7 +8,7 @@ let askUserName=()=>{
          }
          break
      }    if(typeof userName!=='string'||userName===''){
-        console.log('Write your name! (do not leave it empty nor writing a number)w')
+        console.log('Write your name! (do not leave it empty nor writing a number)')
         return askUserName()
     }
     return userName
@@ -92,9 +92,18 @@ let runNextTurn=(bingoCard)=>{
 let pointsResult=(points,allPoints,usersNames)=>{
     console.log('Your result is',points,'points')
     console.log('Each users points:')
+    let usersNamesAndPoints=[]
     for(let i=0;i<usersNames.length;i++){
-        console.log(usersNames[i]+':',allPoints[i])
+        usersNamesAndPoints.push({user: usersNames[i],points: allPoints[i]})
     }
+    if(usersNamesAndPoints.length!==1){
+        usersNamesAndPoints.sort( function( a , b){
+            if(a.points > b.points) return -1
+            if(a.points < b.points) return 1
+            return 0
+        })
+    }
+    usersNamesAndPoints.forEach(namePoints=>console.log(namePoints.user+':',namePoints.points))
 }
 let runBingoGame=(usersNames,allPoints)=>{
     let bingoCard=[],turns=1,points=100
