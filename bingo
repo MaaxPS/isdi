@@ -13,18 +13,27 @@ let askUserName=()=>{
     }
     return userName
 }
+
 let showBingoCard=(bingoCard)=>{
-    let stringBingoCard
-    stringBingoCard=bingoCard.join(' ')
-    console.log(stringBingoCard.substring(0,9)+'\n'+stringBingoCard.substring(10,19)+'\n'+stringBingoCard.substring(20,29))
+    console.log(...bingoCard.slice(0,5))
+    console.log(...bingoCard.slice(5,10))    
+    console.log(...bingoCard.slice(10,15))
 }
+
 let getRandomNumber=()=>{
-    return (Math.floor(Math.random()*9))+1
+    return (Math.floor(Math.random()*99))+1
 }
+
 let runFirstTurn=(bingoCard)=>{
+    let randomNumber
     console.log('Your bingo card is: ')
     for(let i=0;i<15;i++){
-        bingoCard.push(getRandomNumber())
+        randomNumber=getRandomNumber()
+        if(bingoCard.includes(randomNumber)){
+            i--
+            continue
+        }
+        bingoCard.push(randomNumber)
         if(i===14){
             bingoCard=bingoCard.slice(0,5).sort( function( a , b){
                 if(a > b) return 1
@@ -56,8 +65,13 @@ let runFirstTurn=(bingoCard)=>{
         return runFirstTurn(bingoCard)
     }
 }
-let runNextTurn=(bingoCard)=>{
-    let randomNumber=getRandomNumber(),match=false,line=false,bingo=false
+
+let runNextTurn=(bingoCard,bomboNumbers)=>{
+    let randomNumber,match=false,line=false,bingo=false
+    do{
+        randomNumber=getRandomNumber()
+    }while(bomboNumbers.includes(randomNumber))
+    bomboNumbers.push(randomNumber)
     for(let i=0;i<bingoCard.length;i++){
         if(randomNumber===bingoCard[i]){
             bingoCard[i]='X'
@@ -89,6 +103,7 @@ let runNextTurn=(bingoCard)=>{
         console.log('Bingo!')
     }
 }
+
 let pointsResult=(points,allPoints,usersNames)=>{
     console.log('Your result is',points,'points')
     console.log('Each users points:')
@@ -105,17 +120,18 @@ let pointsResult=(points,allPoints,usersNames)=>{
     }
     usersNamesAndPoints.forEach(namePoints=>console.log(namePoints.user+':',namePoints.points))
 }
+
 let runBingoGame=(usersNames,allPoints)=>{
-    let bingoCard=[],turns=1,points=100
+    let bingoCard=[],turns=1,points=115,bomboNumbers=[]
     usersNames.push(askUserName())
     runFirstTurn(bingoCard)
-    console.log('Now you have 100 points and for every turn you make you will lose 2 points')
+    console.log('Now you have 115 points and for every turn you make you will lose 1 points')
     while(true){
-        runNextTurn(bingoCard)
+        runNextTurn(bingoCard,bomboNumbers)
         turns++
         if(bingoCard.every(number=>number==='X')){
             console.log('You have completed the bingo in',turns,'turns')
-            points-=(turns*2)
+            points-=turns
             allPoints.push(points)
             pointsResult(points,allPoints,usersNames)
             break
