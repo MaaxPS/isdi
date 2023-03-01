@@ -76,13 +76,13 @@ let runNextTurn=(bingoCard,bomboNumbers)=>{
         if(randomNumber===bingoCard[i]){
             bingoCard[i]=0
             match=true
-            if(i<5&&bingoCard.slice(0,5).every(number=>number===0)){
+            if(i<5&&bingoCard.slice(0,5).every(number=>number===0)&&!(bingoCard.slice(5,10).every(number=>number===0))&&!(bingoCard.slice(10,15).every(number=>number===0))){
                 line=true
             }
-            if(4<i<10&&bingoCard.slice(5,10).every(number=>number===0)){
+            if(4<i<10&&bingoCard.slice(5,10).every(number=>number===0)&&!(bingoCard.slice(0,5).every(number=>number===0))&&!(bingoCard.slice(10,15).every(number=>number===0))){
                 line=true
             }
-            if(9<i<15&&bingoCard.slice(10,15).every(number=>number===0)){
+            if(9<i<15&&bingoCard.slice(10,15).every(number=>number===0)&&!bingoCard.slice(0,5).every(number=>number===0)&&!bingoCard.slice(10,15).every(number=>number===0)){
                 line=true
             }
             if(bingoCard.every(number=>number===0)){
