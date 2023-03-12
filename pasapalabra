@@ -1,9 +1,10 @@
 let askUsername=()=>{
-    let username=prompt('Introduce your username: ')
+    let username=prompt('Introduce tu username: ')
     while(!username){
-        alert('Write your username and do not click cancel!')
-        username=prompt('Introduce your username')
+        alert('Escribe tu username y no cliques cancel!')
+        username=prompt('Introduce tu username')
     }
+    alert('Escribe "pasapalabra" para pasar a la siguiente palabra y "end" para finalizar la ronda')
     return username
 }
 
@@ -13,43 +14,38 @@ let getRandomNumber=()=>{
 
 let runNextPlay=(questions,allUsersPoints,username)=>{
     let rightAnswers=0,exitCommand=false,randomNumber=getRandomNumber()
-    while(!questions.every(question=>question.status===1)){
+    while(!questions.every(question=>question.status===1)&&!exitCommand){
         for(let i=0;i<questions.length;i++){
             if(questions[i].status===0){
                 let answer=prompt(questions[i].questionsLetter[randomNumber].question+': ')
                 while(!answer){
-                    alert('Do not leave it empty or click cancel')
+                    alert('No lo dejes vacio ni cliques cancel')
                     answer=prompt(questions[i].questionsLetter[randomNumber].question+': ')
                 }
                 switch(answer.toLowerCase()){
                     case questions[i].questionsLetter[randomNumber].answer:
                         rightAnswers++
                         questions[i].status=1
-                        alert('You are correct! You have '+rightAnswers+' points')
+                        alert('Correcto! Tienes '+rightAnswers+' puntos')
                         break
                     case 'pasapalabra':
                         break
                     case 'end':
-                        alert('You got '+rightAnswers+' answers right')
+                        alert('Llevas '+rightAnswers+' respuestas acertadas')
+                        i=questions.length
                         exitCommand=true
                         break
                     default:
-                        alert('You are incorrect! You have '+rightAnswers+' points')
+                        alert('Incorrecto! Tienes '+rightAnswers+' puntos')
                         questions[i].status=1
                 }
             }
-            if(exitCommand){
-                break
-            }
-        }
-        if(exitCommand){
-            break
         }
     }
     if(!exitCommand){    
         allUsersPoints.push({username:username,points:rightAnswers})
         let wrongAnswers=23-rightAnswers
-        alert('You got '+rightAnswers+' answers right and got '+wrongAnswers+' answers wrong')
+        alert('Tienes '+rightAnswers+' respuestas correctas y '+wrongAnswers+' respuestas incorrectas')
         showAllPoints(allUsersPoints)
     }
 }
@@ -582,8 +578,8 @@ let runProgram=()=>{
       do{
         runNextPlay(questions,allUsersPoints,askUsername())
         questions.forEach(question=>question.status=0)
-      }while(prompt('Do you want to play again? (yes for play again) ')==='yes')
-      alert('Bye player!')
+      }while(prompt('Quieres jugar otra vez? (si para volver a jugar)')==='si')
+      alert('Adios jugador!')
 }
 
 runProgram()
